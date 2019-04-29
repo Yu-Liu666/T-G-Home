@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/m.css" th:href="@{/css/m.css}">
+
+</head>
+<body>
+<br>
+<br>
+<br>
+<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
+    <div class="ui container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        Sign Up
+                    </div>
+                </h2>
+                <form class="ui large form" method="post" action="#" th:action="@{/signup}">
+                    <div class="ui segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="username...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="password...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" placeholder="please type in password again...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="address card icon"></i>
+                                <input type="text" name="realName" placeholder="your real name...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <select name="role">
+                                <option value="">Please choose your role...</option>
+                                <option value="1">Teacher</option>
+                                <option value="0">Parents</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <select name="school">
+                                <option value="">Please choose your child's school...</option>
+                                <option value="school1">School1</option>
+                                <option value="school2">School2</option>
+                                <option value="school2">School3</option>
+                            </select>
+                        </div>
+                        <button class="ui fluid large teal submit button">Sign Up</button>
+                        <br>
+                        <a class="ui fluid large red button" th:href="@{/login}">Sign In</a>
+                    </div>
+                    <div class="ui mini error message"></div>
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">
+                        The username is used, please input another username.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    $('.ui.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please inout your username'
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please input your password'
+                }]
+            },
+            realName: {
+                identifier: 'realName',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please input your realName'
+                }]
+            },
+            role: {
+                identifier: 'role',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please choose role'
+                }]
+            },
+            school: {
+                identifier: 'school',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please choose school'
+                }]
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

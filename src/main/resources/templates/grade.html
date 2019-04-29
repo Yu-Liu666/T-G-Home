@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/typo.css">
+  <link rel="stylesheet" href="../static/css/animate.css">
+  <link rel="stylesheet" href="../static/lib/prism/prism.css">
+  <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">
+  <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<body>
+
+    <div class="ui grid">
+      <div class="three wide column">
+        <div class="ui vertical fluid tabular menu">
+          <a class="item big_font teal" th:if="${session.user.role==0}" th:href="@{/course/announcements/{course_id}(course_id=${course.id})}">
+            <h2 class="ui icon header">
+              <!-- <i class="settings icon"></i> -->
+              <div class="content">Announcement
+              </div>
+            </h2>
+          </a>
+          <a class="item big_font teal" th:if="${session.user.role==1}" th:href="@{/course/announcements/teacher/{id}(id=${course.id})}">
+            <h2 class="ui icon header">
+              <!-- <i class="settings icon"></i> -->
+              <div class="content">Announcement
+              </div>
+            </h2>
+          </a>
+          <a class="item big_font teal" th:href="@{/course/mailbox/{course_id}/{user_id}(course_id=${course.id},user_id=${session.user.id})}">
+            <h2 class="ui icon header">
+              <!-- <i class="book icon"></i> -->
+              <div class="content">Mailbox
+              </div>
+            </h2>
+          </a>
+          <a class="item big_font teal" th:href="@{/course/channel/{course_id}(course_id=${course.id})}">
+            <h2 class="ui icon header">
+              <!-- <i class="book icon"></i> -->
+              <div class="content">Channel
+              </div>
+            </h2>
+          </a>
+          <a class="active item big_font teal">
+            <h2 class="ui icon header">
+              <!-- <i class="book icon"></i> -->
+              <div class="content">Grade
+              </div>
+            </h2>
+          </a>
+          <!--<a class="item big_font teal" th:href="@{/course/comment/{course_id}(course_id=${course.id})}">-->
+            <!--<h2 class="ui icon header">-->
+              <!--&lt;!&ndash; <i class="book icon"></i> &ndash;&gt;-->
+              <!--<div class="content">Comment-->
+              <!--</div>-->
+            <!--</h2>-->
+          <!--</a>-->
+          <a class="item big_font teal" th:href="@{/services/showclasses/{user_id}(user_id=${session.user.id})}">
+            <h2 class="ui icon header">
+              <div class="content">Courses
+              </div>
+            </h2>
+          </a>
+
+        </div>
+      </div>
+      <div class="twelve wide column">
+        <table class="ui fixed table">
+          <thead>
+          <tr><th>Homework or Exam</th>
+            <th>Grade</th>
+            <th>Comment</th>
+          </tr></thead>
+          <tbody>
+          </tbody>
+        </table>
+        <button class="ui teal button" th:if="${session.user.role==1}">Add Grade</button>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+</body>
+</html>

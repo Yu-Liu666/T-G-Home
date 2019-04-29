@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Mail Box</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+</head>
+<body>
+
+<div class="ui grid">
+    <div class="three wide column">
+        <div class="ui vertical fluid tabular menu">
+            <a class="item big_font teal" th:if="${session.user.role==0}" th:href="@{/course/announcements/{course_id}(course_id=${course.id})}">
+                <h2 class="ui icon header">
+                    <!-- <i class="settings icon"></i> -->
+                    <div class="content">Announcement
+                    </div>
+                </h2>
+            </a>
+            <a class="item big_font teal" th:if="${session.user.role==1}" th:href="@{/course/announcements/teacher/{id}(id=${course.id})}">
+                <h2 class="ui icon header">
+                    <!-- <i class="settings icon"></i> -->
+                    <div class="content">Announcement
+                    </div>
+                </h2>
+            </a>
+            <a class="active item big_font teal">
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">Mailbox
+                    </div>
+                </h2>
+            </a>
+            <a class="item big_font teal" th:href="@{/course/channel/{course_id}(course_id=${course.id})}">
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">Channel
+                    </div>
+                </h2>
+            </a>
+            <a class="item big_font teal" th:href="@{/course/grade/{course_id}(course_id=${course.id})}">
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">Grade
+                    </div>
+                </h2>
+            </a>
+            <!--<a class="item big_font teal" th:href="@{/course/comment/{course_id}(course_id=${course.id})}">-->
+                <!--<h2 class="ui icon header">-->
+                    <!--&lt;!&ndash; <i class="book icon"></i> &ndash;&gt;-->
+                    <!--<div class="content">Comment-->
+                    <!--</div>-->
+                <!--</h2>-->
+            <!--</a>-->
+            <a class="item big_font teal" th:href="@{/services/showclasses/{user_id}(user_id=${user.id})}">
+                <h2 class="ui icon header">
+                    <div class="content">Courses
+                    </div>
+                </h2>
+            </a>
+            <!--<a class="item big_font teal">-->
+                <!--<h2 class="ui icon header">-->
+                    <!--&lt;!&ndash; <i class="book icon"></i> &ndash;&gt;-->
+                    <!--<div class="content">files-->
+                    <!--</div>-->
+                <!--</h2>-->
+
+            <!--</a>-->
+        </div>
+    </div>
+
+    <div class="twelve wide stretched column">
+
+        <!--Send Messages-->
+        <div class="ui segment">
+            <form class="ui form" method="post" action="#" th:action="@{/course/mailbox/{course_id}/{user_id}(course_id=${course.id},user_id=${user.id})}">
+                <div class="field">
+                    <label>Recipient</label>
+                    <input type="text" name="recipient-username" placeholder="who's recipient" value="">
+                </div>
+                <div class="field">
+                    <label>Subject Line</label>
+                    <input type="text" name="subject-line" placeholder="what's subject of message" value="">
+                </div>
+                <div class="field">
+                    <label>Text</label>
+                    <textarea name="content" placeholder="what's content of message" value=""></textarea>
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!--Receive Messages-->
+        <div class="ui segment" id="mails">
+            <div th:fragment="mailList">
+                <div class="ui divided items">
+                    <div class="item" th:each="emailmessage:${emailmessages}">
+                        <div class="content">
+                            <a class="header" th:text="${emailmessage.subjectLine}">Subject Line 1</a>
+                            <div class="description">
+                                <p th:text="${emailmessage.content}">Content ssss ddddddddddddddddddddddddddddddddddddddd</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script th:inline="javascript">
+
+    $(function(){
+        setInterval(aa,1000);
+        function aa(){
+            $("#mails").load(/*[[@{/course/fragment/{course_id}/{user_id}(course_id=${course.id},user_id=${session.user.id})}]]*/"");
+        }
+    })
+
+</script>
+
+</body>
+</html>

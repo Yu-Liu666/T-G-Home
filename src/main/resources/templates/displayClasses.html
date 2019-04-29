@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Classes</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+    <div class="ui grid">
+        <!--Left side bar-->
+        <div class="two wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="item big_font" id="account-left-bar">
+                    <h2 class="ui icon header">
+                        <i class="settings icon"></i>
+                        <div class="content">Account
+                        </div>
+                    </h2>
+                </a>
+                <a class="active item big_font teal" id="classes-left-bar">
+                    <h2 class="ui icon header">
+                        <i class="book icon"></i>
+                        <div class="content">Courses
+                        </div>
+                    </h2>
+                </a>
+                <a class="item big_font teal" th:href="@{/services/ads}">
+                    <h2 class="ui icon header">
+                        <i class="info icon"></i>
+                        <div class="content">Tutoring Info
+                        </div>
+                    </h2>
+                </a>
+                <a class="item big_font teal" th:href="@{/logout}">
+                    <h2 class="ui icon header">
+                        <i class="sign out alternate icon"></i>
+                        <div class="content">Logout
+                        </div>
+                    </h2>
+                </a>
+            </div>
+        </div>
+
+        <div class="fourteen wide stretched column">
+            <div class="ui segment">
+                <form class="ui large form" method="post" action="#" th:action="@{/services/addclass/{id}(id=${user.id})}" id="submit-new-course-form">
+                    <div class="ui fluid action input">
+                        <input type="text" placeholder="Search..." name="newclass" value="">
+                        <div class="ui button" id="search-class">Search</div>
+                    </div>
+                </form>
+                <br>
+                <div class="ui three column grid">
+                    <div class="column" th:each="course : ${courses}">
+                        <a class="ui fluid card" th:if="${session.user.role==0}" th:href="@{/course/announcements/{id}(id=${course.id})}">
+                            <div class="image" >
+                                <img src="../static/images/yellow.jpg" th:src="@{/yellow.jpg}" style="height: 200px">
+                            </div>
+                            <div class="content">
+                                <div class="ui header" th:text="${course.name}">Chinese</div>
+                                <div class="ui description" th:text="${course.identifier}">Chinese</div>
+                                <div class="ui description" th:text="${course.description}">This is Chinese class.</div>
+                            </div>
+                        </a>
+                        <a class="ui fluid card" th:if="${session.user.role==1}" th:href="@{/course/announcements/teacher/{id}(id=${course.id})}">
+                            <div class="image" >
+                                <img src="../static/images/yellow.jpg" th:src="@{/yellow.jpg}" style="height: 200px">
+                            </div>
+                            <div class="content">
+                                <div class="header" th:text="${course.name}">Chinese</div>
+                                <div class="description" th:text="${course.description}">This is Chinese class.</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="ui container">
+                <div class="ui middle aligned center aligned grid">
+                    <div class="ui column">
+                        <div class="ui basic modal">
+                            <div class="ui icon header">
+                                <i class="archive icon"></i>
+                                Confirmation
+                            </div>
+                            <div class="content">
+                                <p>Add this course?</p>
+                            </div>
+                            <div class="actions">
+                                <div class="ui red basic cancel inverted button">
+                                    <i class="remove icon"></i>
+                                    No
+                                </div>
+                                <button class="ui green ok inverted button" id="submit-add-course">
+                                    <i class="checkmark icon"></i>
+                                    Yes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    <script>
+        $('#search-class').click(
+            function(){
+                $(".ui.basic.modal").modal('show');
+            }
+        );
+
+        $('#submit-add-course').click(function(){
+            $('#submit-new-course-form').submit();
+        });
+    </script>
+</body>
+</html>
